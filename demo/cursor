@@ -1,0 +1,60 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Data::Dumper;
+use ExtUtils::testlib;
+use Term::Slang;
+
+print "Version: $Term::Slang::VERSION\n";
+my @line = qw(this is a test);
+
+my $sl = Term::Slang->new;
+
+$sl->init_smg;
+$sl->SLang_init_tty(-1,0,1);
+$sl->smg_init_smg;
+$sl->SLkp_init();
+
+$sl->smg_normal_video;
+$sl->smg_gotorc(20,0);
+print "Use the up and down arrows to continue\n";
+my $r = 20;
+
+while(my $key = $sl->SLkp_getkey) {
+	# Up 258
+	if ($key == 258) {
+		$sl->smg_gotorc($r,0);
+		$sl->smg_erase_eol;
+		$r++;
+		$sl->smg_gotorc($r,0);
+		$sl->smg_write_string("-> $r - $key");
+		$sl->smg_refresh;
+		if ($r == 39) {
+			$sl->SLtt_beep;
+			$r = 38;
+			next;
+		}
+	}
+
+	# Down 257
+	if ($key == 257) {
+		$sl->smg_gotorc($r,0);
+		$sl->smg_erase_eol;
+		$r--;
+		$sl->smg_gotorc($r,0);
+		$sl->smg_write_string("-> $r - $key");
+		$sl->smg_refresh;
+		if ($r == 0) {
+			$sl->SLtt_beep;
+			$r = 1;
+			next;
+		}
+	}
+}
+
+$sl->smg_refresh;
+
+sub DESTROY {
+	$sl->SLang_reset_tty;
+	$sl->smg_reset_smg;
+}

@@ -1,0 +1,65 @@
+#!/usr/bin/perl -w
+
+use strict;
+use ExtUtils::testlib;
+use Term::Slang;
+use Data::Dumper;
+
+my $sl = Term::Slang->new;
+
+$sl->init_smg;
+$sl->smg_init_smg;
+
+my $q = 'Do you like Joe Satriani?';
+
+my $dc = (length $q) + 2;
+my $dr = 7;
+
+$dc = 36 if $dc < 32;
+
+my($s_rows,$s_cols) = $sl->SLtt_get_screen_size;
+
+my $r = ($s_rows - $dr)/2;
+my $c = ($s_cols - $dc)/2;
+
+my $box_color = 2;
+my $button_color = 3;
+
+$sl->smg_define_color($button_color,'white','green');
+$sl->smg_define_color($box_color,'yellow','blue');
+
+$sl->smg_set_color($box_color);
+$sl->smg_draw_box($r,$c,$dr,$dc);
+
+$sl->smg_set_color(0);
+
+$r += 2;
+draw_centered_string($q,$r,$c,$dc);
+$r += 2;
+
+display_button('Yes',$r,$c + 4);
+display_button('No',$r,$c + 14);
+display_button('Cancel',$r,$c + 24);
+
+$sl->smg_refresh;
+
+#$sl->SLkp_define_keysym("\033>",0x1001);
+#$sl->SLkp_define_keysym("\033<",0x1002);
+
+$sl->smg_reset_smg;
+exit;
+
+####
+sub draw_centered_string {
+	my ($s,$r,$c,$dc) = @_;
+	$sl->smg_gotorc($r,$c + ($dc - (length $s))/2);
+	$sl->smg_write_string($s);
+}
+
+sub display_button {
+	my ($name,$r,$c) = @_;
+	$sl->smg_gotorc($r,$c);
+	$sl->smg_set_color($button_color);
+	$sl->smg_write_string(" $name ");
+	$sl->smg_set_color(0);
+}

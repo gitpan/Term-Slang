@@ -1,0 +1,38 @@
+#!/usr/bin/perl -w
+
+# This is a port of the keypad.c demo.
+# $Id: keypad,v 1.1 1998/11/03 01:30:36 daniel Exp daniel $
+
+use strict;
+use Term::Slang;
+
+my $sl = Term::Slang->new;
+
+$sl->init_smg;
+$sl->SLang_init_tty(-1,0,1);
+$sl->smg_init_smg;
+$sl->SLkp_init;
+
+my $timeout = 2;
+
+print "This program illustrates the slkeypad facility.\n";
+print "Press any key ('q' quits).\n";
+
+while($sl->SLang_input_pending(1000)) {
+
+	my $ch = $sl->SLang_getkey;
+
+	if ($ch == 033) {
+		last if $sl->SLang_input_pending($timeout) == 0;
+	}
+   
+	$sl->SLang_ungetkey($ch);
+  
+	$ch = $sl->SLkp_getkey;
+
+	last if $ch == 113;
+	printf "Keysym: %d\r\n", $ch;
+}
+   
+$sl->SLang_reset_tty;
+$sl->smg_reset_smg;
