@@ -1,5 +1,5 @@
 
-/* $Id: Slang.xs,v 1.6 2000/03/20 05:40:01 daniel Exp $ */
+/* $Id: Slang.xs,v 1.10 2000/04/17 22:46:08 daniel Exp $ */
 
 #ifdef __cplusplus
 "C" {
@@ -27,505 +27,7 @@ typedef struct _Scroll_Line_Type {
 } Scroll_Line_Type;
 */
 
-/* Constant loading */
-static int
-not_here(s)
-	char *s;
-	{
-		croak("%s not implemented on this architecture", s);
-		return -1;
-	}
-
-static double
-constant(name, arg)
-	char *name;
-	int arg;
-{
-    errno = 0;
-    switch (*name) {
-    case 'A':
-	break;
-    case 'B':
-	break;
-    case 'C':
-	break;
-    case 'D':
-	break;
-    case 'E':
-	break;
-    case 'F':
-	break;
-    case 'G':
-	break;
-    case 'H':
-	break;
-    case 'I':
-	break;
-    case 'J':
-	break;
-    case 'K':
-	break;
-    case 'L':
-	break;
-    case 'M':
-	break;
-    case 'N':
-	break;
-    case 'O':
-	break;
-    case 'P':
-	break;
-    case 'Q':
-	break;
-    case 'R':
-	break;
-    case 'S':
-	if (strEQ(name, "SLANG_GETKEY_ERROR"))
-#ifdef SLANG_GETKEY_ERROR
-	    return SLANG_GETKEY_ERROR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLANG_VERSION"))
-#ifdef SLANG_VERSION
-	    return SLANG_VERSION;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_CKBRD_CHAR"))
-#ifdef SLSMG_CKBRD_CHAR
-	    return SLSMG_CKBRD_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BLACK"))
-#ifdef SLSMG_COLOR_BLACK
-	    return SLSMG_COLOR_BLACK;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BLUE"))
-#ifdef SLSMG_COLOR_BLUE
-	    return SLSMG_COLOR_BLUE;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BRIGHT_BLUE"))
-#ifdef SLSMG_COLOR_BRIGHT_BLUE
-	    return SLSMG_COLOR_BRIGHT_BLUE;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BRIGHT_BROWN"))
-#ifdef SLSMG_COLOR_BRIGHT_BROWN
-	    return SLSMG_COLOR_BRIGHT_BROWN;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BRIGHT_CYAN"))
-#ifdef SLSMG_COLOR_BRIGHT_CYAN
-	    return SLSMG_COLOR_BRIGHT_CYAN;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BRIGHT_GREEN"))
-#ifdef SLSMG_COLOR_BRIGHT_GREEN
-	    return SLSMG_COLOR_BRIGHT_GREEN;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BRIGHT_MAGENTA"))
-#ifdef SLSMG_COLOR_BRIGHT_MAGENTA
-	    return SLSMG_COLOR_BRIGHT_MAGENTA;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BRIGHT_RED"))
-#ifdef SLSMG_COLOR_BRIGHT_RED
-	    return SLSMG_COLOR_BRIGHT_RED;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BRIGHT_WHITE"))
-#ifdef SLSMG_COLOR_BRIGHT_WHITE
-	    return SLSMG_COLOR_BRIGHT_WHITE;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_BROWN"))
-#ifdef SLSMG_COLOR_BROWN
-	    return SLSMG_COLOR_BROWN;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_CYAN"))
-#ifdef SLSMG_COLOR_CYAN
-	    return SLSMG_COLOR_CYAN;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_GRAY"))
-#ifdef SLSMG_COLOR_GRAY
-	    return SLSMG_COLOR_GRAY;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_GREEN"))
-#ifdef SLSMG_COLOR_GREEN
-	    return SLSMG_COLOR_GREEN;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_LGRAY"))
-#ifdef SLSMG_COLOR_LGRAY
-	    return SLSMG_COLOR_LGRAY;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_MAGENTA"))
-#ifdef SLSMG_COLOR_MAGENTA
-	    return SLSMG_COLOR_MAGENTA;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_COLOR_RED"))
-#ifdef SLSMG_COLOR_RED
-	    return SLSMG_COLOR_RED;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_DTEE_CHAR"))
-#ifdef SLSMG_DTEE_CHAR
-	    return SLSMG_DTEE_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_HLINE_CHAR"))
-#ifdef SLSMG_HLINE_CHAR
-	    return SLSMG_HLINE_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_LLCORN_CHAR"))
-#ifdef SLSMG_LLCORN_CHAR
-	    return SLSMG_LLCORN_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_LRCORN_CHAR"))
-#ifdef SLSMG_LRCORN_CHAR
-	    return SLSMG_LRCORN_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_LTEE_CHAR"))
-#ifdef SLSMG_LTEE_CHAR
-	    return SLSMG_LTEE_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_NEWLINE_IGNORED"))
-#ifdef SLSMG_NEWLINE_IGNORED
-	    return SLSMG_NEWLINE_IGNORED;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_NEWLINE_MOVES"))
-#ifdef SLSMG_NEWLINE_MOVES
-	    return SLSMG_NEWLINE_MOVES;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_NEWLINE_PRINTABLE"))
-#ifdef SLSMG_NEWLINE_PRINTABLE
-	    return SLSMG_NEWLINE_PRINTABLE;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_NEWLINE_SCROLLS"))
-#ifdef SLSMG_NEWLINE_SCROLLS
-	    return SLSMG_NEWLINE_SCROLLS;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_PLUS_CHAR"))
-#ifdef SLSMG_PLUS_CHAR
-	    return SLSMG_PLUS_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_RTEE_CHAR"))
-#ifdef SLSMG_RTEE_CHAR
-	    return SLSMG_RTEE_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_ULCORN_CHAR"))
-#ifdef SLSMG_ULCORN_CHAR
-	    return SLSMG_ULCORN_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_URCORN_CHAR"))
-#ifdef SLSMG_URCORN_CHAR
-	    return SLSMG_URCORN_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_UTEE_CHAR"))
-#ifdef SLSMG_UTEE_CHAR
-	    return SLSMG_UTEE_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLSMG_VLINE_CHAR"))
-#ifdef SLSMG_VLINE_CHAR
-	    return SLSMG_VLINE_CHAR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLTT_ALTC_MASK"))
-#ifdef SLTT_ALTC_MASK
-	    return SLTT_ALTC_MASK;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLTT_BLINK_MASK"))
-#ifdef SLTT_BLINK_MASK
-	    return SLTT_BLINK_MASK;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLTT_BOLD_MASK"))
-#ifdef SLTT_BOLD_MASK
-	    return SLTT_BOLD_MASK;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLTT_REV_MASK"))
-#ifdef SLTT_REV_MASK
-	    return SLTT_REV_MASK;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SLTT_ULINE_MASK"))
-#ifdef SLTT_ULINE_MASK
-	    return SLTT_ULINE_MASK;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_A1"))
-#ifdef SL_KEY_A1
-	    return SL_KEY_A1;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_A3"))
-#ifdef SL_KEY_A3
-	    return SL_KEY_A3;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_B2"))
-#ifdef SL_KEY_B2
-	    return SL_KEY_B2;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_BACKSPACE"))
-#ifdef SL_KEY_BACKSPACE
-	    return SL_KEY_BACKSPACE;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_C1"))
-#ifdef SL_KEY_C1
-	    return SL_KEY_C1;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_C3"))
-#ifdef SL_KEY_C3
-	    return SL_KEY_C3;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_DELETE"))
-#ifdef SL_KEY_DELETE
-	    return SL_KEY_DELETE;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_DOWN"))
-#ifdef SL_KEY_DOWN
-	    return SL_KEY_DOWN;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_END"))
-#ifdef SL_KEY_END
-	    return SL_KEY_END;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_ENTER"))
-#ifdef SL_KEY_ENTER
-	    return SL_KEY_ENTER;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_ERR"))
-#ifdef SL_KEY_ERR
-	    return SL_KEY_ERR;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_F0"))
-#ifdef SL_KEY_F0
-	    return SL_KEY_F0;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_HOME"))
-#ifdef SL_KEY_HOME
-	    return SL_KEY_HOME;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_IC"))
-#ifdef SL_KEY_IC
-	    return SL_KEY_IC;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_LEFT"))
-#ifdef SL_KEY_LEFT
-	    return SL_KEY_LEFT;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_NPAGE"))
-#ifdef SL_KEY_NPAGE
-	    return SL_KEY_NPAGE;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_PPAGE"))
-#ifdef SL_KEY_PPAGE
-	    return SL_KEY_PPAGE;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_REDO"))
-#ifdef SL_KEY_REDO
-	    return SL_KEY_REDO;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_RIGHT"))
-#ifdef SL_KEY_RIGHT
-	    return SL_KEY_RIGHT;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_UNDO"))
-#ifdef SL_KEY_UNDO
-	    return SL_KEY_UNDO;
-#else
-	    goto not_there;
-#endif
-	if (strEQ(name, "SL_KEY_UP"))
-#ifdef SL_KEY_UP
-	    return SL_KEY_UP;
-#else
-	    goto not_there;
-#endif
-	break;
-    case 'T':
-	break;
-    case 'U':
-	break;
-    case 'V':
-	break;
-    case 'W':
-	break;
-    case 'X':
-	break;
-    case 'Y':
-	break;
-    case 'Z':
-	break;
-    }
-    errno = EINVAL;
-    return 0;
-
-not_there:
-    errno = ENOENT;
-    return 0;
-}
-
 MODULE = Term::Slang	PACKAGE = Term::Slang
-
-int
-_constant()
-	ALIAS:
-
-# alias list below generated with:
-# perl -ne 'printf "\t%-16s = %s\n", $1, $2' \
-#       -e '    if /#define\s+SL_(KEY_\w+)\s+(\S+)/' /usr/include/slang.h
-
-	KEY_ERR          = 0xFFFF
-	KEY_UP           = 0x101
-	KEY_DOWN         = 0x102
-	KEY_LEFT         = 0x103
-	KEY_RIGHT        = 0x104
-	KEY_PPAGE        = 0x105
-	KEY_NPAGE        = 0x106
-	KEY_HOME         = 0x107
-	KEY_END          = 0x108
-	KEY_A1           = 0x109
-	KEY_A3           = 0x10A
-	KEY_B2           = 0x10B
-	KEY_C1           = 0x10C
-	KEY_C3           = 0x10D
-	KEY_REDO         = 0x10E
-	KEY_UNDO         = 0x10F
-	KEY_BACKSPACE    = 0x110
-	KEY_ENTER        = 0x111
-	KEY_IC           = 0x112
-	KEY_DELETE       = 0x113
-	KEY_F0           = 0x200
-	
-# alias list below generated with:
-# perl -ne 'printf "\t%-16s = %s\n", $1, $2' \
-#      -e 'if /#define\s+SLTT_(\w+_MASK)\s+(\S+)/' /usr/include/slang.h
-
-	BOLD_MASK        = 0x01000000UL
-	BLINK_MASK       = 0x02000000UL
-	ULINE_MASK       = 0x04000000UL
-	REV_MASK         = 0x08000000UL
-	ALTC_MASK        = 0x10000000UL
-	
-	CODE:
-	RETVAL = ix;
-	
-	OUTPUT:
-	RETVAL
-
-static int
-KEY_F(n)
-	int n;
-
-	CODE:
-	RETVAL = SL_KEY_F0 + n;
-
-	OUTPUT:
-	RETVAL                                                                               
-
-double
-constant(name,arg)
-	char *		name
-	int		arg
 
 ################################
 # Screen management
@@ -588,7 +90,15 @@ SLsmg_write_nstring(str,len)
 
 void
 SLsmg_write_char(ch)
-	char ch;
+	SV *ch;
+	CODE:
+	{
+		if (SvIOK(ch)) {
+			SLsmg_write_char(SvIV(ch));
+		} else {
+			SLsmg_write_char(*SvPV(ch,PL_na));
+		}
+	}
 
 void
 SLsmg_write_nchars(str,len)
@@ -634,8 +144,10 @@ SLsmg_char_at()
 
 void
 SLsmg_set_screen_start(r,c)
-	int *r;
-	int *c;
+	int r;
+	int c;
+	CODE:
+		SLsmg_set_screen_start(&r, &c);
 
 void
 SLsmg_draw_hline(p1)
@@ -1118,6 +630,14 @@ SLtt_get_screen_size()
 		PUSHs(sv_2mortal(newSViv(SLtt_Screen_Rows)));
 		PUSHs(sv_2mortal(newSViv(SLtt_Screen_Cols)));
 
+void
+SLtt_set_screen_size(r, c)
+	int r;
+	int c;
+	CODE:
+		SLtt_Screen_Rows = r;
+		SLtt_Screen_Cols = c;
+
 int
 SLtt_set_cursor_visibility(i1)
 	int i1;
@@ -1139,3 +659,226 @@ SLtt_set_mono(i1, s1, l1)
 	int i1;
 	char *s1;
 	unsigned long l1;
+
+BOOT:
+{
+	HV *stash = gv_stashpvn("Term::Slang", 11, TRUE);
+	struct { char *n; I32 v; } Term__Slang__const[] = {
+#ifdef SLANG_GETKEY_ERROR
+	{"SLANG_GETKEY_ERROR", SLANG_GETKEY_ERROR},
+#endif
+#ifdef SLANG_VERSION
+	{"SLANG_VERSION", SLANG_VERSION},
+#endif
+#ifdef SLSMG_BLOCK_CHAR
+	{"SLSMG_BLOCK_CHAR", SLSMG_BLOCK_CHAR},
+#endif
+#ifdef SLSMG_BOARD_CHAR
+	{"SLSMG_BOARD_CHAR", SLSMG_BOARD_CHAR},
+#endif
+#ifdef SLSMG_BULLET_CHAR
+	{"SLSMG_BULLET_CHAR", SLSMG_BULLET_CHAR},
+#endif
+#ifdef SLSMG_CKBRD_CHAR
+	{"SLSMG_CKBRD_CHAR", SLSMG_CKBRD_CHAR},
+#endif
+#ifdef SLSMG_COLOR_BLACK
+	{"SLSMG_COLOR_BLACK", SLSMG_COLOR_BLACK},
+#endif
+#ifdef SLSMG_COLOR_BLUE
+	{"SLSMG_COLOR_BLUE", SLSMG_COLOR_BLUE},
+#endif
+#ifdef SLSMG_COLOR_BRIGHT_BLUE
+	{"SLSMG_COLOR_BRIGHT_BLUE", SLSMG_COLOR_BRIGHT_BLUE},
+#endif
+#ifdef SLSMG_COLOR_BRIGHT_BROWN
+	{"SLSMG_COLOR_BRIGHT_BROWN", SLSMG_COLOR_BRIGHT_BROWN},
+#endif
+#ifdef SLSMG_COLOR_BRIGHT_CYAN
+	{"SLSMG_COLOR_BRIGHT_CYAN", SLSMG_COLOR_BRIGHT_CYAN},
+#endif
+#ifdef SLSMG_COLOR_BRIGHT_GREEN
+	{"SLSMG_COLOR_BRIGHT_GREEN", SLSMG_COLOR_BRIGHT_GREEN},
+#endif
+#ifdef SLSMG_COLOR_BRIGHT_MAGENTA
+	{"SLSMG_COLOR_BRIGHT_MAGENTA", SLSMG_COLOR_BRIGHT_MAGENTA},
+#endif
+#ifdef SLSMG_COLOR_BRIGHT_RED
+	{"SLSMG_COLOR_BRIGHT_RED", SLSMG_COLOR_BRIGHT_RED},
+#endif
+#ifdef SLSMG_COLOR_BRIGHT_WHITE
+	{"SLSMG_COLOR_BRIGHT_WHITE", SLSMG_COLOR_BRIGHT_WHITE},
+#endif
+#ifdef SLSMG_COLOR_BROWN
+	{"SLSMG_COLOR_BROWN", SLSMG_COLOR_BROWN},
+#endif
+#ifdef SLSMG_COLOR_CYAN
+	{"SLSMG_COLOR_CYAN", SLSMG_COLOR_CYAN},
+#endif
+#ifdef SLSMG_COLOR_GRAY
+	{"SLSMG_COLOR_GRAY", SLSMG_COLOR_GRAY},
+#endif
+#ifdef SLSMG_COLOR_GREEN
+	{"SLSMG_COLOR_GREEN", SLSMG_COLOR_GREEN},
+#endif
+#ifdef SLSMG_COLOR_LGRAY
+	{"SLSMG_COLOR_LGRAY", SLSMG_COLOR_LGRAY},
+#endif
+#ifdef SLSMG_COLOR_MAGENTA
+	{"SLSMG_COLOR_MAGENTA", SLSMG_COLOR_MAGENTA},
+#endif
+#ifdef SLSMG_COLOR_RED
+	{"SLSMG_COLOR_RED", SLSMG_COLOR_RED},
+#endif
+#ifdef SLSMG_DARROW_CHAR
+	{"SLSMG_DARROW_CHAR", SLSMG_DARROW_CHAR},
+#endif
+#ifdef SLSMG_DEGREE_CHAR
+	{"SLSMG_DEGREE_CHAR", SLSMG_DEGREE_CHAR},
+#endif
+#ifdef SLSMG_DIAMOND_CHAR
+	{"SLSMG_DIAMOND_CHAR", SLSMG_DIAMOND_CHAR},
+#endif
+#ifdef SLSMG_DTEE_CHAR
+	{"SLSMG_DTEE_CHAR", SLSMG_DTEE_CHAR},
+#endif
+#ifdef SLSMG_HLINE_CHAR
+	{"SLSMG_HLINE_CHAR", SLSMG_HLINE_CHAR},
+#endif
+#ifdef SLSMG_LARROW_CHAR
+	{"SLSMG_LARROW_CHAR", SLSMG_LARROW_CHAR},
+#endif
+#ifdef SLSMG_LLCORN_CHAR
+	{"SLSMG_LLCORN_CHAR", SLSMG_LLCORN_CHAR},
+#endif
+#ifdef SLSMG_LRCORN_CHAR
+	{"SLSMG_LRCORN_CHAR", SLSMG_LRCORN_CHAR},
+#endif
+#ifdef SLSMG_LTEE_CHAR
+	{"SLSMG_LTEE_CHAR", SLSMG_LTEE_CHAR},
+#endif
+#ifdef SLSMG_NEWLINE_IGNORED
+	{"SLSMG_NEWLINE_IGNORED", SLSMG_NEWLINE_IGNORED},
+#endif
+#ifdef SLSMG_NEWLINE_MOVES
+	{"SLSMG_NEWLINE_MOVES", SLSMG_NEWLINE_MOVES},
+#endif
+#ifdef SLSMG_NEWLINE_PRINTABLE
+	{"SLSMG_NEWLINE_PRINTABLE", SLSMG_NEWLINE_PRINTABLE},
+#endif
+#ifdef SLSMG_NEWLINE_SCROLLS
+	{"SLSMG_NEWLINE_SCROLLS", SLSMG_NEWLINE_SCROLLS},
+#endif
+#ifdef SLSMG_PLMINUS_CHAR
+	{"SLSMG_PLMINUS_CHAR", SLSMG_PLMINUS_CHAR},
+#endif
+#ifdef SLSMG_PLUS_CHAR
+	{"SLSMG_PLUS_CHAR", SLSMG_PLUS_CHAR},
+#endif
+#ifdef SLSMG_RARROW_CHAR
+	{"SLSMG_RARROW_CHAR", SLSMG_RARROW_CHAR},
+#endif
+#ifdef SLSMG_RTEE_CHAR
+	{"SLSMG_RTEE_CHAR", SLSMG_RTEE_CHAR},
+#endif
+#ifdef SLSMG_UARROW_CHAR
+	{"SLSMG_UARROW_CHAR", SLSMG_UARROW_CHAR},
+#endif
+#ifdef SLSMG_ULCORN_CHAR
+	{"SLSMG_ULCORN_CHAR", SLSMG_ULCORN_CHAR},
+#endif
+#ifdef SLSMG_URCORN_CHAR
+	{"SLSMG_URCORN_CHAR", SLSMG_URCORN_CHAR},
+#endif
+#ifdef SLSMG_UTEE_CHAR
+	{"SLSMG_UTEE_CHAR", SLSMG_UTEE_CHAR},
+#endif
+#ifdef SLSMG_VLINE_CHAR
+	{"SLSMG_VLINE_CHAR", SLSMG_VLINE_CHAR},
+#endif
+#ifdef SLTT_ALTC_MASK
+	{"SLTT_ALTC_MASK", SLTT_ALTC_MASK},
+#endif
+#ifdef SLTT_BLINK_MASK
+	{"SLTT_BLINK_MASK", SLTT_BLINK_MASK},
+#endif
+#ifdef SLTT_BOLD_MASK
+	{"SLTT_BOLD_MASK", SLTT_BOLD_MASK},
+#endif
+#ifdef SLTT_REV_MASK
+	{"SLTT_REV_MASK", SLTT_REV_MASK},
+#endif
+#ifdef SLTT_ULINE_MASK
+	{"SLTT_ULINE_MASK", SLTT_ULINE_MASK},
+#endif
+#ifdef SL_KEY_A1
+	{"SL_KEY_A1", SL_KEY_A1},
+#endif
+#ifdef SL_KEY_A3
+	{"SL_KEY_A3", SL_KEY_A3},
+#endif
+#ifdef SL_KEY_B2
+	{"SL_KEY_B2", SL_KEY_B2},
+#endif
+#ifdef SL_KEY_BACKSPACE
+	{"SL_KEY_BACKSPACE", SL_KEY_BACKSPACE},
+#endif
+#ifdef SL_KEY_C1
+	{"SL_KEY_C1", SL_KEY_C1},
+#endif
+#ifdef SL_KEY_C3
+	{"SL_KEY_C3", SL_KEY_C3},
+#endif
+#ifdef SL_KEY_DELETE
+	{"SL_KEY_DELETE", SL_KEY_DELETE},
+#endif
+#ifdef SL_KEY_DOWN
+	{"SL_KEY_DOWN", SL_KEY_DOWN},
+#endif
+#ifdef SL_KEY_END
+	{"SL_KEY_END", SL_KEY_END},
+#endif
+#ifdef SL_KEY_ENTER
+	{"SL_KEY_ENTER", SL_KEY_ENTER},
+#endif
+#ifdef SL_KEY_ERR
+	{"SL_KEY_ERR", SL_KEY_ERR},
+#endif
+#ifdef SL_KEY_F0
+	{"SL_KEY_F0", SL_KEY_F0},
+#endif
+#ifdef SL_KEY_HOME
+	{"SL_KEY_HOME", SL_KEY_HOME},
+#endif
+#ifdef SL_KEY_IC
+	{"SL_KEY_IC", SL_KEY_IC},
+#endif
+#ifdef SL_KEY_LEFT
+	{"SL_KEY_LEFT", SL_KEY_LEFT},
+#endif
+#ifdef SL_KEY_NPAGE
+	{"SL_KEY_NPAGE", SL_KEY_NPAGE},
+#endif
+#ifdef SL_KEY_PPAGE
+	{"SL_KEY_PPAGE", SL_KEY_PPAGE},
+#endif
+#ifdef SL_KEY_REDO
+	{"SL_KEY_REDO", SL_KEY_REDO},
+#endif
+#ifdef SL_KEY_RIGHT
+	{"SL_KEY_RIGHT", SL_KEY_RIGHT},
+#endif
+#ifdef SL_KEY_UNDO
+	{"SL_KEY_UNDO", SL_KEY_UNDO},
+#endif
+#ifdef SL_KEY_UP
+	{"SL_KEY_UP", SL_KEY_UP},
+#endif
+	{Nullch,0}};
+
+	char *name;
+	int i;
+	for (i = 0; name = Term__Slang__const[i].n; i++) {
+		newCONSTSUB(stash, name, newSViv(Term__Slang__const[i].v));
+	}
+}

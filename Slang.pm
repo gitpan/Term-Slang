@@ -1,14 +1,14 @@
 package Term::Slang;
 
-# $Id: Slang.pm,v 1.7 2000/03/21 22:28:30 daniel Exp $
+# $Id: Slang.pm,v 1.10 2000/04/17 22:46:08 daniel Exp $
 
 use strict;
 use Exporter;
-use DynaLoader;
 
-use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD);
+use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS);
 
-@ISA	   = qw(Exporter DynaLoader);
+$VERSION   = '0.07';
+@ISA	   = qw(Exporter);
 @EXPORT_OK = qw(
 	SLang_buffer_keystring SLang_flush_input SLang_getkey 
 	SLang_getkey_intr_hook SLang_init_readline SLang_init_tty
@@ -48,9 +48,8 @@ use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD);
 	SLtt_init_video SLtt_normal_video SLtt_putchar SLtt_reset_scroll_region
 	SLtt_reset_video SLtt_reverse_index SLtt_reverse_video SLtt_set_color
 	SLtt_set_cursor_visibility SLtt_set_mouse_mode SLtt_set_scroll_region
-	SLtt_smart_puts SLtt_write_string SLtt_set_mono
-	
-	SLtty_set_suspend_state
+	SLtt_smart_puts SLtt_write_string SLtt_set_mono SLtty_set_suspend_state
+	SLtt_set_screen_size
 
 	SLANG_GETKEY_ERROR SLANG_VERSION SLSMG_CKBRD_CHAR SLSMG_COLOR_BLACK
 	SLSMG_COLOR_BLUE SLSMG_COLOR_BRIGHT_BLUE SLSMG_COLOR_BRIGHT_BROWN
@@ -66,7 +65,9 @@ use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD);
 	SL_KEY_B2 SL_KEY_BACKSPACE SL_KEY_C1 SL_KEY_C3 SL_KEY_DELETE SL_KEY_DOWN
 	SL_KEY_END SL_KEY_ENTER SL_KEY_ERR SL_KEY_F0 SL_KEY_HOME SL_KEY_IC
 	SL_KEY_LEFT SL_KEY_NPAGE SL_KEY_PPAGE SL_KEY_REDO SL_KEY_RIGHT SL_KEY_UNDO
-	SL_KEY_UP
+	SL_KEY_UP SLSMG_DARROW_CHAR SLSMG_BLOCK_CHAR SLSMG_BOARD_CHAR 
+	SLSMG_BULLET_CHAR SLSMG_DEGREE_CHAR SLSMG_DIAMOND_CHAR SLSMG_LARROW_CHAR
+	SLSMG_PLMINUS_CHAR SLSMG_RARROW_CHAR SLSMG_UARROW_CHAR
 );
 
 %EXPORT_TAGS = (
@@ -80,26 +81,15 @@ use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD);
 	'all'       => [ @EXPORT_OK],
 );
 
-$VERSION = '0.06';
+BOOT_XS: {
+	# If I inherit DynaLoader then I inherit AutoLoader and I DON'T WANT TO.
+	require DynaLoader;
 
-bootstrap Term::Slang $VERSION;
+	# DynaLoader calls dl_load_flags as a static method.
+	*dl_load_flags = DynaLoader->can('dl_load_flags');
 
-sub AUTOLOAD {
-	my $constname;
-	($constname = $AUTOLOAD) =~ s/.*:://;
-	die "& not defined" if $constname eq 'constant';
-	my $val = constant($constname, @_ ? $_[0] : 0);
-
-	if ($! != 0) {
-		if ($! !~ /Invalid/) {
-			die "Term::Slang macro $constname : $!";
-		}
-		$AutoLoader::AUTOLOAD = $AUTOLOAD;
-		goto &AutoLoader::AUTOLOAD;
-	}
-	no strict 'refs';
-	*$AUTOLOAD = sub { $val };
-	goto &$AUTOLOAD;
+	do {__PACKAGE__->can('bootstrap') || 
+		\&DynaLoader::bootstrap}->(__PACKAGE__,$VERSION);
 }
 
 1;
