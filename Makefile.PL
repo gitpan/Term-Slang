@@ -1,3 +1,5 @@
+# $Id: Makefile.PL,v 1.2 1999/12/22 23:55:34 daniel Exp $
+
 require 5.004_04;
 use ExtUtils::MakeMaker;
 use Config qw(%Config);
@@ -17,11 +19,12 @@ print "Checking for 'slang.h'\n";
 my $include = '';
 my @inc = split /\s+/,join(' ',$Config{'usrinc'},$Config{'incpth'},$Config{'locincpth'});
 foreach my $path (@inc) {
-	print "Checking in $path...\n";
 	if (-f "$path/slang.h") {
+		print "Checking in $path/...\n";
 		$include .= "-I$path ";
         	last;
 	} elsif (-f "$path/slang/slang.h") {
+		print "Checking in $path/slang/...\n";
 		$include .= "-I$path/slang ";
 		last;
 	}
@@ -35,6 +38,7 @@ WriteMakefile(
 	'LIBS'		=> ['-lslang'],
 	'DEFINE'	=> '',
 	'INC'		=> $include,
+	'PMLIBDIRS'	=> [ 'Slang' ],
 	'dist'		=> {	COMPRESS => 'gzip -9f',
 				SUFFIX   => 'gz',
 				DIST_DEFAULT => 'tardist',
