@@ -1,6 +1,6 @@
 package Term::Slang::Scroll;
 
-# $Id: Scroll.pm,v 1.1 1999/12/22 23:55:45 daniel Exp $
+# $Id: Scroll.pm,v 1.2 2000/03/20 05:40:01 daniel Exp $
 
 use strict;
 use Data::Dumper;
@@ -35,10 +35,10 @@ sub TIEHASH {
 sub STORE {
 	my ($self, $key, $val) = @_;
 	die unless @_ == 3;
-	print '-' x 50, "\n";
-	print "VALUE DUMP: ", Dumper($val);
-	print "VALUE REF: ", ref($val), "\n";
-	print '-' x 50, "\n";
+	#print '-' x 50, "\n";
+	#print "VALUE DUMP: ", Dumper($val);
+	#print "VALUE REF: ", ref($val), "\n";
+	#print '-' x 50, "\n";
 	Term::Slang::SLline_set($self->{'line'}, $key, $val);
 }
 

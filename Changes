@@ -1,10 +1,10 @@
 Revision history for Perl extension Term::Slang.
 
-0.03  Sun Oct 25 14:56:25 1998
-	- Changed API to mirror slang API, lost OO stuff.
+0.06  - Fixed cvs problem, constants.
 
-0.02	- unreleased.
+0.05  - Added patches from Joey Hess.
 
-0.01  Sun Oct 25 14:56:25 1998
-	- original version; created by h2xs 1.18
+0.03  - Changed API to mirror slang API, lost OO stuff.
+
+0.01  - original version; created by h2xs 1.18
 

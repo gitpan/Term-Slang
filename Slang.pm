@@ -1,14 +1,14 @@
 package Term::Slang;
 
-# $Id: Slang.pm,v 1.4 1999/12/22 23:55:34 daniel Exp $
+# $Id: Slang.pm,v 1.7 2000/03/21 22:28:30 daniel Exp $
 
 use strict;
-use DynaLoader;
 use Exporter;
+use DynaLoader;
 
 use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD);
 
-@ISA = qw(Exporter DynaLoader);
+@ISA	   = qw(Exporter DynaLoader);
 @EXPORT_OK = qw(
 	SLang_buffer_keystring SLang_flush_input SLang_getkey 
 	SLang_getkey_intr_hook SLang_init_readline SLang_init_tty
@@ -40,7 +40,7 @@ use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD);
 	SLsmg_set_terminal_info SLsmg_suspend_smg SLsmg_touch_lines
 	SLsmg_write_char SLsmg_write_color_chars SLsmg_write_nchars
 	SLsmg_write_nstring SLsmg_write_raw SLsmg_write_string
-	SLsmg_write_wrapped_string
+	SLsmg_write_wrapped_string SLsmg_reinit_smg
 	
 	SLtt_beep SLtt_begin_insert SLtt_bold_video SLtt_cls SLtt_del_eol
 	SLtt_delete_char SLtt_delete_nlines SLtt_end_insert SLtt_erase_line
@@ -48,7 +48,7 @@ use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD);
 	SLtt_init_video SLtt_normal_video SLtt_putchar SLtt_reset_scroll_region
 	SLtt_reset_video SLtt_reverse_index SLtt_reverse_video SLtt_set_color
 	SLtt_set_cursor_visibility SLtt_set_mouse_mode SLtt_set_scroll_region
-	SLtt_smart_puts SLtt_write_string
+	SLtt_smart_puts SLtt_write_string SLtt_set_mono
 	
 	SLtty_set_suspend_state
 
@@ -80,7 +80,7 @@ use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD);
 	'all'       => [ @EXPORT_OK],
 );
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 bootstrap Term::Slang $VERSION;
 
@@ -98,7 +98,7 @@ sub AUTOLOAD {
 		goto &AutoLoader::AUTOLOAD;
 	}
 	no strict 'refs';
-	*$AUTOLOAD = sub () { $val };
+	*$AUTOLOAD = sub { $val };
 	goto &$AUTOLOAD;
 }
 
@@ -115,9 +115,13 @@ use Term::Slang qw(:all);
 
 SLtt_get_terminfo();
 SLang_init_tty(-1,0,1);
+
 SLsig_block_signals();
+
 SLsmg_init_smg;
+
 SLsig_unblock_signals();
+
 SLkp_init();
 
 =head1 DESCRIPTION
@@ -126,7 +130,7 @@ Please see the S-Lang API documentation.
 
 =head1 AUTHOR
 
-Daniel E<lt>daniel-cpan-slang@electricrain.comE<gt>
+Daniel Sully E<lt>daniel-cpan-slang@electricrain.comE<gt>
 
 This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

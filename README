@@ -6,7 +6,7 @@ on your system:
 
     * Perl 5.004 or greater.
 
-    * The Slang library, 1.2.2 or greater.
+    * The Slang library, 1.4 or greater.
 
 	Available at: ftp://space.mit.edu/pub/davis/slang/
 
@@ -17,31 +17,8 @@ To build, test and install this distribution type:
  make test
  make install
 
-PATCHES
--------
-
-Please send me patches!
-
-A word about Style:
-
-I am picky.
-
-Please use diff -ur
-
-Use tabs (8) to indent all blocks.
-
-Use ) {, not ){
-
-Don't use () if you don't have to.
-
-Defaults are good.
-
-Spaces and newlines are good.
-
-Thank you. This has been a public service announcment of the anal-retentive.
-
 --
-Daniel <daniel-cpan-slang@electricrain.com>
+Daniel Sully <daniel-cpan-slang@electricrain.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

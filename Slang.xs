@@ -1,5 +1,5 @@
 
-/* $Id: Slang.xs,v 1.5 1999/12/22 23:55:34 daniel Exp $ */
+/* $Id: Slang.xs,v 1.6 2000/03/20 05:40:01 daniel Exp $ */
 
 #ifdef __cplusplus
 "C" {
@@ -466,7 +466,62 @@ not_there:
 
 MODULE = Term::Slang	PACKAGE = Term::Slang
 
-# Constant loading
+int
+_constant()
+	ALIAS:
+
+# alias list below generated with:
+# perl -ne 'printf "\t%-16s = %s\n", $1, $2' \
+#       -e '    if /#define\s+SL_(KEY_\w+)\s+(\S+)/' /usr/include/slang.h
+
+	KEY_ERR          = 0xFFFF
+	KEY_UP           = 0x101
+	KEY_DOWN         = 0x102
+	KEY_LEFT         = 0x103
+	KEY_RIGHT        = 0x104
+	KEY_PPAGE        = 0x105
+	KEY_NPAGE        = 0x106
+	KEY_HOME         = 0x107
+	KEY_END          = 0x108
+	KEY_A1           = 0x109
+	KEY_A3           = 0x10A
+	KEY_B2           = 0x10B
+	KEY_C1           = 0x10C
+	KEY_C3           = 0x10D
+	KEY_REDO         = 0x10E
+	KEY_UNDO         = 0x10F
+	KEY_BACKSPACE    = 0x110
+	KEY_ENTER        = 0x111
+	KEY_IC           = 0x112
+	KEY_DELETE       = 0x113
+	KEY_F0           = 0x200
+	
+# alias list below generated with:
+# perl -ne 'printf "\t%-16s = %s\n", $1, $2' \
+#      -e 'if /#define\s+SLTT_(\w+_MASK)\s+(\S+)/' /usr/include/slang.h
+
+	BOLD_MASK        = 0x01000000UL
+	BLINK_MASK       = 0x02000000UL
+	ULINE_MASK       = 0x04000000UL
+	REV_MASK         = 0x08000000UL
+	ALTC_MASK        = 0x10000000UL
+	
+	CODE:
+	RETVAL = ix;
+	
+	OUTPUT:
+	RETVAL
+
+static int
+KEY_F(n)
+	int n;
+
+	CODE:
+	RETVAL = SL_KEY_F0 + n;
+
+	OUTPUT:
+	RETVAL                                                                               
+
 double
 constant(name,arg)
 	char *		name
@@ -567,6 +622,9 @@ SLsmg_init_smg()
 		RETVAL = RETVAL == 0 ? 1 : 0;
 	OUTPUT:
 	RETVAL
+
+int
+SLsmg_reinit_smg() 
 
 void
 SLsmg_reset_smg()
@@ -680,9 +738,9 @@ int
 SLang_input_pending(tsecs)
 	int tsecs;
 
-#int
-#SLang_set_abort_signal(i1)
-#	int i1;
+int
+SLang_set_abort_signal(p1)
+	void *p1;
 
 ################################
 # Scrolling
@@ -841,7 +899,7 @@ SLline_get(lines, key)
 	PPCODE:
 	{
 		if (strEQ(key, "next")) {
-			sv = (Scroll_Line_Type*)SvIV( lines->sv_next );
+			sv = (Scroll_Line_Type*)SvPV( lines->sv_next, PL_na );
 
 			/* c = (PAIR*)SvIV( c->sv_next ); */
 		} else if (strEQ(key, "prev")) {
@@ -864,22 +922,32 @@ SLline_set(self, key, val)
 	CODE:
 	{
 		Scroll_Line_Type *foo;
+		foo = (Scroll_Line_Type*)safemalloc(sizeof(Scroll_Line_Type));
 
-		foo = (Scroll_Line_Type*)SvIV(val);
+		printf("in SLline_set\n");
+		/*
+		foo = (Scroll_Line_Type*)SvRV(val);
+		printf("in SLline_set\n");
 		printf("VAL1: %s\n", (char*)foo->data);
+		*/
 
 		if (strEQ(key, "next")) {
 			self->sv_next = SvRV(val);
 			SvREFCNT_inc( self->sv_next );
 
 			if (SvIOK(self->sv_next)) {
-				foo = (Scroll_Line_Type*)SvIV( self->sv_next );
-				printf("VAL2: %s\n", (char*)foo->data);
+				foo = (Scroll_Line_Type*)self->sv_next;
+				printf("SLline_set->next->data: %s\n", (char*)foo->data);
 			}
 
 		} else if (strEQ(key, "prev")) {
 			self->sv_prev = SvRV(val);
 			SvREFCNT_inc( self->sv_prev );
+
+			if (SvIOK(self->sv_prev)) {
+				foo = (Scroll_Line_Type*)self->sv_prev;
+				printf("SLline_set->prev->data: %s\n", (char*)foo->data);
+			}
 
 		} else if (strEQ(key, "data")) {
 			self->data = (char*)SvPV(val, PL_na);
@@ -1065,3 +1133,9 @@ SLtt_set_color(obj,name,fg,bg)
 	char	*name;
 	char	*fg;
 	char	*bg;
+
+void
+SLtt_set_mono(i1, s1, l1)
+	int i1;
+	char *s1;
+	unsigned long l1;
